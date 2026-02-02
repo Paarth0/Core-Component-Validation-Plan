@@ -1,0 +1,15 @@
+{
+  "file": "./data/sample_5page.pdf",
+  "total_chunks": 3,
+  "vectors_stored": 3,
+  "processing_time_sec": 4.286,
+  "pages_per_sec": 1.17,
+  "memory_mb": 94.26,
+  "embedding_latency_ms": 26.3,
+  "chunk_ids": [
+    "sample_5page_0000",
+    "sample_5page_0001",
+    "sample_5page_0002"
+  ],
+  "errors": []
+}
