@@ -1,7 +1,5 @@
-<<<<<<< HEAD
+
 # Core-Component-Validation-Plan
-=======
-cat > README.md << 'EOF'
 # PKA Validation Core
 
 Laptop-based validation framework for the iPhone 17 Pro Personal Knowledge Assistant (PKA v2.0) architecture.
@@ -9,6 +7,50 @@ Laptop-based validation framework for the iPhone 17 Pro Personal Knowledge Assis
 ## 🎯 Project Overview
 
 This project validates that the core document processing pipeline from the PKA specification can run on standard laptop hardware using open-source tools.
+The implementation proves that the iPhone 17 Pro PKA architecture can be validated on standard laptop hardware using open-source tools.
+
+
+## Project Structure & Architecture
+pka-validation/
+├── README.md                      # This file
+├── DECISIONS.md                   # Architecture Decision Records
+├── requirements.txt               # Python dependencies
+├── pytest.ini                     # Pytest configuration
+├── src/
+│   ├── main.py                    # CLI entry point
+│   ├── ingestion_coordinator.py   # Task 1.1 - Pipeline orchestration
+│   ├── extraction_worker.py       # Task 1.2 - Document parsing
+│   ├── text_splitter.py           # Task 2.1 - Semantic chunking
+│   ├── embedding_worker.py        # Task 2.2 - Vector embeddings
+│   └── indexing_worker.py         # Vector storage (SQLite)
+├── tests/
+│   ├── test_golden_output.py      # Golden output tests
+│   └── test_acceptance_criteria.py # AC validation tests
+├── scripts/
+│   └── create_test_pdf.py         # Test PDF generator
+├── data/                          # Input documents
+├── models/                        # Cached ML models
+└── output/                        # Processing results
+
+┌─────────────────────────────────────────────────────────────┐
+│                     CLI (main.py)                           │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐      │
+│  │  Ingestion  │───▶│  Extraction │───▶│    Text     │      │
+│  │ Coordinator │    │   Worker    │    │  Splitter   │      │
+│  │  (asyncio)  │    │(PDF/DOCX/..)│    │(512 tokens) │      │
+│  └─────────────┘    └─────────────┘    └──────┬──────┘      │
+│                                                │            │
+│                                                ▼            │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐      │
+│  │   SQLite    │◀───│   Indexing  │◀───│  Embedding  │      │
+│  │  (Float16)  │    │   Worker    │    │   Worker    │      │
+│  └─────────────┘    └─────────────┘    └─────────────┘      │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+
+
 
 ## ✅ Requirements Compliance
 
@@ -30,17 +72,61 @@ This project validates that the core document processing pipeline from the PKA s
 - Python 3.9+
 - macOS / Linux / Windows
 
-### Installation
 
+# Core Component Validation Plan
+
+This repository contains the Core Component Validation Plan project.  
+Follow the steps below to set up and run the project on any computer.
+
+## Installation
+# 1. Clone the repository
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd pka-validation
+git clone https://github.com/Paarth0/Core-Component-Validation-Plan.git
+cd Core-Component-Validation-Plan
 
-# Create virtual environment
+# 2. Create a virtual environment
 python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+(Mac) source venv/bin/activate | (WIndows) venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
->>>>>>> 0ca899e9 (Task 1 Initial Commit)
+
+
+### Running the Pipeline
+# Create test PDF
+python scripts/create_test_pdf.py
+
+# Ingest a document
+python src/main.py ingest --input ./data/sample_5page.pdf --verbose
+
+# Search the database
+python src/main.py search --query "validation methodology" --top-k 3
+
+# View statistics
+python src/main.py stats
+
+
+### Running Tests
+1. Testing Search Functionality
+   Run Search Commands
+
+cd /Users/a]--/pka-validation
+source venv/bin/activate
+
+# Search 1: Find content about introduction
+python src/main.py search --query "introduction validation core" --top-k 3
+
+# Search 2: Find content about methodology
+python src/main.py search --query "document extraction chunking" --top-k 3
+
+# Search 3: Find content about results
+python src/main.py search --query "performance metrics latency" --top-k 3
+
+# Search 4: Find content about conclusion
+python src/main.py search --query "production implementation iPhone" --top-k 3
+
+# Run all tests
+PYTHONPATH=./src pytest tests/ -v -s
+
+# Run specific test file
+PYTHONPATH=./src pytest tests/test_golden_output.py -v -s
