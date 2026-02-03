@@ -4,14 +4,13 @@
 
 Laptop-based validation framework for the iPhone 17 Pro Personal Knowledge Assistant (PKA v2.0) architecture.
 
-## 🎯 Project Overview
+##  Project Overview
 
 This project validates that the core document processing pipeline from the PKA specification can run on standard laptop hardware using open-source tools.
 The implementation proves that the iPhone 17 Pro PKA architecture can be validated on standard laptop hardware using open-source tools.
 
 
-## Project Structure & Architecture
-PROJECT STRUCTURE
+## Project Structure
 pka-validation/
 ├── README.md                      # This file
 ├── DECISIONS.md                   # Architecture Decision Records
@@ -32,25 +31,6 @@ pka-validation/
 ├── data/                          # Input documents
 ├── models/                        # Cached ML models
 └── output/                        # Processing results
-
-
-┌─────────────────────────────────────────────────────────────┐
-│                     CLI (main.py)                           │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐      │
-│  │  Ingestion  │───▶│  Extraction │───▶│    Text     │      │
-│  │ Coordinator │    │   Worker    │    │  Splitter   │      │
-│  │  (asyncio)  │    │(PDF/DOCX/..)│    │(512 tokens) │      │
-│  └─────────────┘    └─────────────┘    └──────┬──────┘      │
-│                                                │            │
-│                                                ▼            │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐      │
-│  │   SQLite    │◀───│   Indexing  │◀───│  Embedding  │      │
-│  │  (Float16)  │    │   Worker    │    │   Worker    │      │
-│  └─────────────┘    └─────────────┘    └─────────────┘      │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
 
 
 
