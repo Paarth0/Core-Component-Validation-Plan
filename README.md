@@ -34,7 +34,7 @@ pka-validation/
 
 
 
-## ✅ Requirements Compliance
+## Requirements Compliance
 
 | Requirement | Description | Status |
 |-------------|-------------|--------|
@@ -48,7 +48,6 @@ pka-validation/
 | Task 2.1 | RecursiveCharacterTextSplitter | ✅ Passed |
 | Task 2.2 | Embedding <50ms latency | ✅ Passed (1.23ms) |
 
-## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.9+
@@ -56,9 +55,9 @@ pka-validation/
 
 
 # Core Component Validation Plan
-
 This repository contains the Core Component Validation Plan project.  
 Follow the steps below to set up and run the project on any computer.
+
 
 ## Installation
 # 1. Clone the repository
