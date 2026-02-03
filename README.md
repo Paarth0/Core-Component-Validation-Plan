@@ -11,6 +11,7 @@ The implementation proves that the iPhone 17 Pro PKA architecture can be validat
 
 
 ## Project Structure & Architecture
+PROJECT STRUCTURE
 pka-validation/
 ├── README.md                      # This file
 ├── DECISIONS.md                   # Architecture Decision Records
@@ -31,6 +32,7 @@ pka-validation/
 ├── data/                          # Input documents
 ├── models/                        # Cached ML models
 └── output/                        # Processing results
+
 
 ┌─────────────────────────────────────────────────────────────┐
 │                     CLI (main.py)                           │
